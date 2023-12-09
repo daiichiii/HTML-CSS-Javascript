@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>クリスマスまでのカウントダウン</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+    }
+
+    #countdown-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #countdown {
+      font-size: 3em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown-container">
+    <h1>クリスマスまでの残り日数</h1>
+    <div id="countdown"></div>
+  </div>
+
+  <script>
+    // クリスマスまでの日付を設定（月は0から始まるため11は実際の12月を表します）
+    const christmasDate = new Date(new Date().getFullYear(), 11, 25).getTime();
+
+    function updateCountdown() {
+      // 現在の日付とクリスマスまでの残り時間を計算
+      const now = new Date().getTime();
+      const timeRemaining = christmasDate - now;
+
+      // 日数、時間、分、秒に変換
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      // カウントダウン表示を更新
+      document.getElementById('countdown').innerHTML = `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+    }
+
+    // カウントダウンの更新を1秒ごとに繰り返す
+    setInterval(updateCountdown, 1000);
+
+    // 季節に合わせた背景画像の設定
+    const currentMonth = new Date().getMonth();
+    const body = document.body;
+    if (currentMonth === 11) {
+      // 12月の場合（クリスマスシーズン）
+      body.style.backgroundImage = 'url("christmas_background.jpg")';
+    } else {
+      // その他の場合（季節に合った画像を設定）
+      body.style.backgroundImage = 'url("default_seasonal_background.jpg")';
+    }
+  </script>
+</body>
+</html>
