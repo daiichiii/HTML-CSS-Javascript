@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #drag-icon {
+      position: fixed;
+      display: none;
+      font-size: 24px;
+      color: #3498db;
+    }
+  </style>
+</head>
+<body>
+
+<div id="drag-icon" draggable="true">&#8597;</div>
+
+<script>
+  // ドラッグ開始時に呼び出される関数
+  function handleDragStart(event) {
+    // ドラッグアイコンを表示する要素を取得
+    var dragIcon = document.getElementById('drag-icon');
+
+    // ドラッグアイコンの初期位置を設定
+    dragIcon.style.left = event.clientX + 'px';
+    dragIcon.style.top = event.clientY + 'px';
+
+    // ドラッグアイコンを表示
+    dragIcon.style.display = 'block';
+
+    // ドラッグデータを設定
+    event.dataTransfer.setData('text/plain', '');
+  }
+
+  // ドラッグ中に呼び出される関数
+  function handleDrag(event) {
+    // ドラッグアイコンを移動
+    var dragIcon = document.getElementById('drag-icon');
+    dragIcon.style.left = event.clientX + 'px';
+    dragIcon.style.top = event.clientY + 'px';
+  }
+
+  // ドラッグ終了時に呼び出される関数
+  function handleDragEnd() {
+    // ドラッグアイコンを非表示にする
+    var dragIcon = document.getElementById('drag-icon');
+    dragIcon.style.display = 'none';
+  }
+
+  // ドラッグ可能な要素に対してドラッグ関連のイベントリスナーを追加
+  var draggableElement = document.getElementById('drag-icon');
+  draggableElement.addEventListener('dragstart', handleDragStart);
+  draggableElement.addEventListener('drag', handleDrag);
+  draggableElement.addEventListener('dragend', handleDragEnd);
+</script>
+
+</body>
+</html>
